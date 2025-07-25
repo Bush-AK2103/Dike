@@ -38,9 +38,12 @@ app.post('/api/upload', upload.single('resume'), (req, res) => {
   }
   console.log('Received file:', req.file);
   // Call Python script to extract data
-  const { spawn } = require('child_process');
+  // const { spawn } = require('child_process');
   const filePath = req.file.path;
-  const py = spawn('python', ['extract_resume.py', filePath]);
+  const { spawn } = require('child_process');
+const py = spawn(process.platform === 'win32' ? 'python' : 'python3', ['extract_resume.py', filePath]);
+
+
   let extracted = '';
   py.stdout.on('data', (data) => {
     extracted += data.toString();
