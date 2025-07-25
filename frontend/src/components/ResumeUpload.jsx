@@ -11,11 +11,14 @@ const ResumeUpload = ({ onUpload, resume, disabled, selectedTemplate }) => {
     formData.append("resume", resume);
     formData.append("templateId", selectedTemplate);
     try {
-      const res = await axios.post(
-      process.env.REACT_APP_API_URL + "/api/upload",
-      formData,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
+      console.log(import.meta.env.VITE_API_URL);
+      const apiURL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+      const res = await axios.post(`${apiURL}/api/upload`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      // axios.post(`${process.env.REACT_APP_API_URL}/api/upload`, formData, { headers: { "Content-Type": "multipart/form-data" } });
+
       const { portfolioId } = res.data;
       if (portfolioId) {
         navigate(`/portfolio/${portfolioId}`);
@@ -52,3 +55,6 @@ const ResumeUpload = ({ onUpload, resume, disabled, selectedTemplate }) => {
 };
 
 export default ResumeUpload; 
+
+// this is my resume upload section for frontend 
+// does it need to be verified??
