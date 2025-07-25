@@ -40,7 +40,8 @@ function PortfolioTemplate() {
   useEffect(() => {
     if (!portfolioId) return;
     setLoading(true);
-    axios.get(`/api/portfolio/${portfolioId}`)
+    const apiURL = (import.meta.env.VITE_API_URL || "http://localhost:3001").replace(/\/$/, "");
+    axios.get(`${apiURL}/api/portfolio/${portfolioId}`)
       .then(res => {
         setData(res.data);
         setLoading(false);
