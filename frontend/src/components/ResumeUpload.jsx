@@ -11,11 +11,11 @@ const ResumeUpload = ({ onUpload, resume, disabled, selectedTemplate }) => {
     formData.append("resume", resume);
     formData.append("templateId", selectedTemplate);
     try {
-      console.log(import.meta.env.VITE_API_URL);
-      const apiURL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+      const apiURL = (import.meta.env.VITE_API_URL || "http://localhost:3001").replace(/\/$/, "");
       const res = await axios.post(`${apiURL}/api/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+
 
       // axios.post(`${process.env.REACT_APP_API_URL}/api/upload`, formData, { headers: { "Content-Type": "multipart/form-data" } });
 
